@@ -64,8 +64,8 @@ It is the simplest approach, works by repeatedly swapping the adjacent elements 
  }
 
 /*
-DIVIDE AND CONQUER
-This type of algorithm breal the problem into several subproblems that are similar to the original problem but 
+DIVIDE AND CONQUER - MERGE SORT
+This type of algorithm breaK the problem into several subproblems that are similar to the original problem but 
 in smaller size, solve the subproblems recursevely, and then combine these solutions to create a solution to 
 the original problem.
 Divide : The problem into a number of subproblems that are smaller instances of the same problem
@@ -73,7 +73,7 @@ Conquer: The subproblem by solveing them recusevely.
 Combine : the solutions to the subproblems into the solution for the original problem.
 
 */
-function mergeSort(nums){
+ function mergeSort(nums){
   if (nums.length < 2) {//if the Array contains only one element then it is already sorted
     return nums;
   }
@@ -100,7 +100,36 @@ function merge(left, right){
   
   return results.concat(left, right);
 }
+/*
+DIVIDE AND CONQUER - QUICK SORT, taken from https://btholt.github.io/four-semesters-of-cs/
+TIt's another divide-and-conquer, recursive algorithm but it takes a slightly different approach. 
+The basic gist is that you take the last element in the list and call that the pivot. 
+Everything that's smaller than the pivot gets put into a "left" list and everything that's greater get's 
+put in a "right" list. You then call quick sort on the left and right lists independently (hence the recursion.)
+After those two sorts come back, you concatenate the sorted left list, the pivot, and then the right list 
+(in that order.) The base case is when you have a list of length 1 or 0, where you just return the list given to you.
+
+*/
+function quickSort(nums){
+  if(nums.length < 2){
+    return nums;
+  }
+  const length = nums.length - 1;
+  const pivot = nums[length]; //Pivot is the last Item
+  const left = [];
+  const rigth = [];
+  for(let i = 0 ; i < length ; i++){
+    if(nums[i] < pivot){
+      left.push(nums[i]);
+    }
+    else{
+      rigth.push(nums[i]);
+    }
+  }
+  return [...quickSort(left), pivot, ...quickSort(rigth)];
+}
 
 //console.log(InsertionSort2(exer1));
 //console.log(BubbleSort(exer1));
-console.log(mergeSort(exer1));
+//console.log(mergeSort(exer1));
+console.log(quickSort(exer1));
